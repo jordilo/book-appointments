@@ -1,0 +1,56 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Dana",
+      "lastname": "Skully"
+    },
+    {
+      "id": 2,
+      "name": "Fox",
+      "lastname": "Mulder"
+    },
+    {
+      "id": 3,
+      "name": "Walter",
+      "lastname": "Skinner"
+    }
+  ],
+  "meetings": [
+    {
+      "id": 1,
+      "userId": 1,
+      "usersId": [
+        1,
+        2,
+        3
+      ],
+      "name": "Meeting for theme 1",
+      "start": "2020-09-06T17:00:00.000+0200",
+      "end": "2020-09-06T17:30:00.000+0200"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "usersId": [
+        1,
+        2,
+        3
+      ],
+      "name": "Meeting for theme 2",
+      "start": "2020-09-06T12:00:00.000+0200",
+      "end": "2020-09-06T13:00:00.000+0200"
+    },
+    {
+      "id": 3,
+      "userId": 2,
+      "usersId": [
+        2,
+        3
+      ],
+      "name": "Meeting for theme 3",
+      "start": "2020-09-06T14:00:00.000+0200",
+      "end": "2020-09-06T17:00:00.000+0200"
+    }
+  ]
+}

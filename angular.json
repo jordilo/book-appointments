@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -123,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "book-appointment"
+    }
+  },
+  "defaultProject": "book-appointment",
+  "cli": {
+    "analytics": "bf386b4b-bc31-416e-ac9b-250bbab13a1e"
+  }
 }

@@ -1,0 +1,22 @@
+<h1>Meetings</h1>
+<form class="form-inline"
+      [formGroup]="form">
+  <div class="form-group">
+    <label for="orderMeetings">Order meetings </label>
+    <select class="custom-select"
+            id="orderMeetings"
+            formControlName="order">
+      <option *ngFor="let option of orderKeys"
+              [value]="option">{{option}}</option>
+    </select>
+  </div>
+</form>
+<div *ngIf="meetings$ | async as meetings; else loading">
+
+  <app-meeting *ngFor="let meeting of meetings ; trackBy: trackByFn"
+               [meeting]="meeting">
+
+    {{meeting.name}}
+  </app-meeting>
+</div>
+<ng-template #loading>...</ng-template>
