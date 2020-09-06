@@ -1,1 +1,7 @@
-<p>users-availability works!</p>
+<div *ngFor="let user of users$ |async">
+  <ul class="list-group">
+    <li class="list-group-item"><a routerLinkActive="active"
+         [routerLink]="[user.id]">{{user | fullName}}</a></li>
+  </ul>
+</div>
+<router-outlet></router-outlet>

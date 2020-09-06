@@ -12,11 +12,12 @@
   </div>
 </form>
 <div *ngIf="meetings$ | async as meetings; else loading">
+  <h3>Results <small>({{meetings.length}})</small></h3>
+  <div *ngIf="meetings.length ;else noResults">
 
-  <app-meeting *ngFor="let meeting of meetings ; trackBy: trackByFn"
-               [meeting]="meeting">
-
-    {{meeting.name}}
-  </app-meeting>
+    <app-meeting *ngFor="let meeting of meetings ; trackBy: trackByFn"
+                 [meeting]="meeting"> </app-meeting>
+  </div>
+  <ng-template #noResults>There are no results</ng-template>
 </div>
 <ng-template #loading>...</ng-template>

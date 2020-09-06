@@ -1,3 +1,17 @@
-<p>{{meeting.name}} <small>{{userFullName}}</small></p>
-<p>{{meeting.start | amDateFormat : 'LL'}}</p>
-<p>{{meeting.start | amDateFormat : 'LT'}} - {{ meeting.end | amDateFormat : 'LT'}}</p>
+<div class="card"
+     style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{meeting.name}}</h5>
+    <div class="card-text">
+      <p>Created by:
+        <a [routerLink]="['user-availability',meeting.user.id]">
+          <small>{{meeting.user | fullName}}</small></a></p>
+      <p>{{meeting.start | amDateFormat : 'LL'}}</p>
+      <p>{{meeting.start | amDateFormat : 'LT'}} - {{ meeting.end | amDateFormat : 'LT'}}</p>
+
+
+    </div>
+    <!-- <a href="#"
+       class="btn btn-primary">Go somewhere</a>
+  </div> -->
+  </div>

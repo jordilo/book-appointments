@@ -15,6 +15,8 @@ import { CreateMeettingComponent } from './views/create-meetting/create-meetting
 import { UsersAvailabilityComponent } from './views/users-availability/users-availability.component';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { MeetingComponent } from './components/meeting/meeting.component';
+import { AvailabilityByUserComponent } from './views/availability-by-user/availability-by-user.component';
+import { FullNamePipe } from './pipes/full-name.pipe';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { MeetingComponent } from './components/meeting/meeting.component';
     CreateMeettingComponent,
     UsersAvailabilityComponent,
     NotFoundComponent,
-    MeetingComponent
+    MeetingComponent,
+    AvailabilityByUserComponent,
+    FullNamePipe
   ],
   imports: [
     BrowserModule,
