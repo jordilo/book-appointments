@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MomentModule } from 'ngx-moment';
+import { NgxDatePickerModule } from '@ngx-tiny/date-picker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,7 +37,8 @@ import { FullNamePipe } from './pipes/full-name.pipe';
     HttpClientModule,
     ReactiveFormsModule,
     CommonModule,
-    MomentModule
+    MomentModule,
+    NgxDatePickerModule
   ],
   providers: [
     { provide: BASE_API_URL, useValue: environment.apiUrl },

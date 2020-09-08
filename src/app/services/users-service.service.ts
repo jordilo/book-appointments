@@ -9,6 +9,10 @@ export class UsersServiceService {
   private readonly CRUD_BASE = 'users';
   constructor(private http: HttpClient) { }
 
+  public getUser(){
+    // mocking a user logged with id 1
+    return this.http.get<User>(`${this.CRUD_BASE}/1`);
+  }
 
   public getUsers() {
     return this.http.get<User[]>(this.CRUD_BASE);
