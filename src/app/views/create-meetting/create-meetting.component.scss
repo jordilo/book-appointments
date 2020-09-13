@@ -1,0 +1,7 @@
+.pickers-wrap {
+  display: flex;
+  align-items: center;
+  & > * {
+    margin-right: 50px;
+  }
+}

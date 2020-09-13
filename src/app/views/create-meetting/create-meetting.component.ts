@@ -1,74 +1,157 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgbCalendar, NgbDateParserFormatter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
+import moment from 'moment';
+import { Observable, Subscription, zip } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { Meeting } from 'src/definitions/meeting';
 import { User } from 'src/definitions/user';
-import { UsersServiceService } from '../../services/users-service.service';
 import { MeetingsServiceService } from '../../services/meetings-service.service';
-import { MeetingsExtended } from '../../services/meetings';
-import { Observable, Subscription, merge, zip } from 'rxjs';
-import { map } from 'rxjs/operators';
-import * as moment from 'moment';
+import { UsersServiceService } from '../../services/users-service.service';
+
+const minHour = 9;
+const maxHour = 18;
+
+function validateStart(control: FormControl, end: AbstractControl | null): any {
+  const value: NgbTimeStruct = control.value;
+  if (!value || !end) {
+    return null;
+  }
+  end.setErrors(null);
+  const endValue: NgbTimeStruct = end.value;
+  if (value.hour > endValue.hour || value.hour === endValue.hour && value.minute >= endValue.minute) {
+    return { overlapEnd: true };
+  }
+  if (value.hour < minHour) {
+    return { tooEarly: true };
+  }
+  if (value.hour > maxHour && value.minute > 30) {
+    return { tooLate: true };
+  }
+
+  return null;
+}
+function validateEnd(control: FormControl, start: AbstractControl | null): any {
+  const value: NgbTimeStruct = control.value;
+  if (!value || !start) {
+    return null;
+  }
+  start.setErrors(null);
+  const startValue: NgbTimeStruct = start.value;
+  if (value.hour < startValue.hour || value.hour === startValue.hour && value.minute <= startValue.minute) {
+    return { overlapStart: true };
+  }
+  if (value.hour < (minHour + 1) && value.minute < 30 || value.hour < minHour) {
+    return { tooEarly: true };
+  }
+  if (value.hour > maxHour) {
+    return { tooLate: true };
+  }
+
+  return null;
+}
+
 
 @Component({
   selector: 'app-create-meetting',
+  styleUrls: ['./create-meetting.component.scss'],
   templateUrl: './create-meetting.component.html',
-  styleUrls: ['./create-meetting.component.scss']
 })
-export class CreateMeettingComponent implements OnInit {
+export class CreateMeettingComponent implements OnInit, OnDestroy {
 
-  public form: FormGroup;
-  public users: FormArray;
-  public users$: Observable<User[]>;
+  public form!: FormGroup;
+  public users!: FormArray;
+  public users$!: Observable<User[]>;
   public date = new Date();
-  private formSubscription: Subscription;
-  private meetings: MeetingsExtended[];
+  private formSubscription!: Subscription;
 
   constructor(
     private fb: FormBuilder,
     private usersServices: UsersServiceService,
-    private meetingServices: MeetingsServiceService
+    private meetingServices: MeetingsServiceService,
+    private calendar: NgbCalendar,
+    public formatter: NgbDateParserFormatter,
+    private router: Router,
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.users$ = this.usersServices.getUsers();
-    this.meetingServices.getMeetings()
-      .subscribe((meetings) => this.meetings = meetings);
 
-    zip(this.usersServices.getUser(), this.usersServices.getUsers())
-      .pipe(map(([user, users]) => this.createForm(user, users)))
-      .subscribe((form) => this.form = form);
+    zip(this.usersServices.getUser(), this.users$, this.meetingServices.getMeetings())
+      .pipe(
+        map(([user, users]) => this.createForm(user, users)),
+        tap((form) => this.form = form)
+      )
+      .subscribe((form) => {
+        const formValues = this.valueAdapterToMeeting(form.getRawValue());
+        this.validateForm(formValues.start, formValues.end);
+      });
   }
 
-  public onSelectUser(user: User, value: boolean) {
-    let attendants = this.form.getRawValue().attendants;
+  public ngOnDestroy(): void {
+    this.formSubscription.unsubscribe();
+  }
+
+  public onSelectUser(user: User, value: boolean): void {
+    const attendants = this.form.getRawValue().attendants as FormArray;
     if (value) {
-      attendants.push(user.id);
+      attendants.push(this.fb.control(user.id));
     } else {
-      attendants = attendants.filter((userId) => userId !== user.id);
+      const position = attendants.value.find((userId: number) => userId !== user.id);
+      attendants.removeAt(position);
+    }
+  }
+
+  public addAppointment(): void {
+    this.meetingServices.postMeetings(this.valueAdapterToMeeting(this.form.getRawValue()))
+      .subscribe(() => this.router.navigate(['']), (err) => alert(err));
+  }
+
+  public valueAdapterToMeeting(formValue: any): Meeting {
+    const startForm: NgbTimeStruct = formValue.start;
+    const start = moment(this.formatter.format(formValue.date)).add(startForm.hour, 'hour').add(startForm.minute, 'minute').format();
+
+    const endForm: NgbTimeStruct = formValue.end;
+    const end = moment(this.formatter.format(formValue.date)).add(endForm.hour, 'hour').add(endForm.minute, 'minute').format();
+
+    const meeting: Meeting = {
+      attendants: formValue.attendants.value,
+      end,
+      name: formValue.name,
+      start,
+      userId: formValue.userId
+    } as Meeting;
+    return meeting;
+  }
+
+  private validateForm(start: string, end: string): boolean {
+    const meetingsOverlap = this.meetingServices.isSomeMeetingOverlapped(new Date(start), new Date(end));
+
+    if (meetingsOverlap) {
+      this.form.setErrors({ unaivalableTime: 'There are already some appointment in this hours' }, { emitEvent: true });
     }
 
-    this.form.setControl('attendants', this.fb.array(attendants));
+    return meetingsOverlap;
   }
 
-  public onChangeSingle(data: any) {
-    console.log(data);
+  private createForm(user: User, users: User[]): FormGroup {
 
-  }
-
-  private createForm(user: User, users: User[]) {
-
-    this.users = this.fb.array(users.map(u => ({ value: false, disabled: u.id === user.id })));
+    this.users = this.fb.array(users.map(u => ({ value: u.id === user.id ? true : false, disabled: u.id === user.id })));
     const form = this.fb.group({
+      attendants: [this.fb.array([user.id]), Validators.minLength(1)],
+      date: this.calendar.getToday(),
+      end: [{ hour: 10, minute: 0, second: 0 }, (control: FormControl) => validateEnd(control, this.form?.get('start'))],
       name: ['', Validators.required],
+      start: [{ hour: 9, minute: 0, second: 0 }, (control: FormControl) => validateStart(control, this.form?.get('end'))],
       userId: user.id,
-      attendants: this.fb.array([user.id]),
-      start: [moment(), Validators.required],
-      end: [moment().add(1, 'hours'), Validators.required]
     });
-
     this.formSubscription = form.valueChanges
-      .subscribe((values) => {
-        console.log(this.form.getRawValue());
-      });
+      .pipe(
+        map(() => this.valueAdapterToMeeting(this.form.getRawValue())),
+        tap((values) => this.validateForm(values.start, values.end))
+      )
+      .subscribe();
     return form;
   }
 }

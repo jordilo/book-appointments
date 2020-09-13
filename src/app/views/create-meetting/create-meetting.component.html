@@ -1,36 +1,74 @@
 <h1>Create a new meeting</h1>
-
-<form class="form"
-      *ngIf="users; else loading">
-  <div class="form-group">
-    <label for="meetingName">Attendants</label>
-    <span *ngFor="let user of users$ | async ; index as i">
-      <input type="checkbox"
-             [value]="user.id"
-             (change)="onSelectUser(user, users.controls[i].value) "
-             [formControl]="users.controls[i]" />
-      {{user | fullName}}{{user.id}}
-    </span>
-  </div>
-</form>
-<form class="form"
-      *ngIf="form; else loading"
+<form *ngIf="form; else loading"
+      (ngSubmit)="addAppointment()"
       [formGroup]="form">
   <div class="form-group">
     <label for="meetingName">Meeting name </label>
     <input type="text"
+           id="meetingName"
+           autofocus
+           [ngClass]="{'is-invalid' : form.get('name')?.errors && form.dirty}"
+           class="form-control"
            formControlName="name" />
   </div>
-  <div class="form-group">
-    <label>Single Date</label>
-    <ngx-date-picker #dateInstanceSingle></ngx-date-picker>
-    <input class="form-control"
-           placeholder="Select Date"
-           [ngxDatePicker]="dateInstanceSingle"
-           [value]="date"
-           (valueChange)="onChangeSingle($event)">
+
+  <div class="form-group form-check">
+    <div *ngFor="let user of users$ | async ; index as i">
+      <input type="checkbox"
+             class="form-check-input"
+             [id]="'checkUser_' + user.id"
+             [value]="user.id"
+             (change)="onSelectUser(user, users.controls[i].value) "
+             [formControl]="users.controls[i]" />
+      <label class="form-check-label"
+             [for]="'checkUser_' + user.id">
+        {{user | fullName}}</label>
+    </div>
   </div>
-  <button [disabled]="form.invalid">Save</button>
-  <pre>{{form.value| json}}</pre>
+  <div class="form-group">
+    <label>Select date</label>
+    <div class="pickers-wrap">
+      <div>
+        <div class="input-group">
+          <input class="form-control"
+                 placeholder="yyyy-mm-dd"
+                 name="dp"
+                 [startDate]="form.value.date"
+                 ngbDatepicker
+                 formControlName="date"
+                 (click)="d.toggle()"
+                 #d="ngbDatepicker">
+        </div>
+      </div>
+      <div>
+        <ngb-timepicker [minuteStep]="30"
+                        formControlName="start"></ngb-timepicker>
+      </div>
+      <div>
+        <ngb-timepicker [minuteStep]="30"
+                        formControlName="end"></ngb-timepicker>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert-danger"
+       *ngIf="form.invalid && form.dirty"
+       role="alert">
+    <div *ngIf="form.get('name')?.errors">
+      Name should be defined
+    </div>
+    <div *ngIf="form.get('start')?.errors?.overlapEnd">
+      Start time should be before end time
+    </div>
+    <div *ngIf="form.get('end')?.errors?.overlapStart">
+      End time should be after start time
+    </div>
+    <div *ngIf="form.get('start')?.errors?.tooLate || form.get('end')?.errors?.tooLate">Oh no, it's way too late
+    </div>
+    <div *ngIf="form.get('start')?.errors?.tooEarly || form.get('end')?.errors?.tooEarly ">It's a bit too early</div>
+    <div *ngIf="form.errors?.unaivalableTime">{{form.errors?.unaivalableTime}}</div>
+  </div>
+  <button class="btn btn-outline-primary"
+          type="submit"
+          [disabled]="form.invalid || form.pristine">Save</button>
 </form>
 <ng-template #loading></ng-template>
