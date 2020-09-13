@@ -11,6 +11,7 @@ import { BASE_API_URL } from './api-url';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MeetingComponent } from './components/meeting/meeting.component';
+import { MeetingsComponent } from './components/meetings/meetings.component';
 import { FullNamePipe } from './pipes/full-name.pipe';
 import { AvailabilityByUserComponent } from './views/availability-by-user/availability-by-user.component';
 import { CreateMeettingComponent } from './views/create-meetting/create-meetting.component';
@@ -29,6 +30,7 @@ import { UsersAvailabilityComponent } from './views/users-availability/users-ava
     MeetingComponent,
     AvailabilityByUserComponent,
     FullNamePipe,
+    MeetingsComponent,
   ],
   imports: [
     BrowserModule,
