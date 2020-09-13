@@ -1,7 +1,14 @@
-<div *ngFor="let user of users$ |async">
-  <ul class="list-group">
-    <li class="list-group-item"><a routerLinkActive="active"
-         [routerLink]="[user.id]">{{user | fullName}}</a></li>
-  </ul>
+<div class="row">
+  <div class="col-md-3">
+
+    <div *ngFor="let user of users$ |async">
+      <ul class="list-group">
+        <li class="list-group-item"><a routerLinkActive="active"
+             [routerLink]="[user.id]">{{user | fullName}}</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <router-outlet></router-outlet>
+  </div>
 </div>
-<router-outlet></router-outlet>

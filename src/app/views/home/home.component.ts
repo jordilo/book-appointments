@@ -1,27 +1,27 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { MeetingsServiceService } from 'src/app/services/meetings-service.service';
-import { ORDER } from 'src/app/services/api-helpers';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
+import { ORDER } from 'src/app/services/api-helpers';
 import { MeetingsExtended } from 'src/app/services/meetings';
+import { MeetingsServiceService } from 'src/app/services/meetings-service.service';
 
 @Component({
   selector: 'app-home',
+  styleUrls: ['./home.component.scss'],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  public meetings$: Observable<MeetingsExtended[]>;
+  public meetings$!: Observable<MeetingsExtended[]>;
 
   public orderKeys: ORDER[] = ['asc', 'desc'];
-  public form: FormGroup;
-  private formSubscription: Subscription;
+  public form!: FormGroup;
+  private formSubscription!: Subscription;
   private currentSort: ORDER = 'asc';
 
   constructor(private meetingsService: MeetingsServiceService, private fb: FormBuilder) { }
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     this.form = this.fb.group({ order: 'asc' });
     this.formSubscription = this.form.valueChanges.subscribe(({ order }) => {
       this.currentSort = order;
@@ -30,12 +30,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.meetings$ = this.meetingsService.getMeetings('start', this.currentSort);
   }
 
-  public ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.formSubscription.unsubscribe();
   }
 
-  public trackByFn(index: number, meeting: MeetingsExtended) {
-    return meeting.id;
+  public trackByFn(_index: number, meeting: MeetingsExtended): string {
+    return `${meeting.id}`;
   }
-
 }

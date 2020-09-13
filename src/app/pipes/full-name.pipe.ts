@@ -6,7 +6,7 @@ import { User } from 'src/definitions/user';
 })
 export class FullNamePipe implements PipeTransform {
 
-  transform(value: User): string {
+  public transform(value: User): string {
     return `${value.name} ${value.lastname}`;
   }
 

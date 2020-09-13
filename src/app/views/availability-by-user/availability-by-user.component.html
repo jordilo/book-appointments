@@ -1,3 +1,6 @@
 <div *ngIf="currentUser$ | async as user">
-  <pre>{{user |json}}</pre>
+  <h1>{{ user | fullName}}</h1>
+</div>
+<div *ngFor="let meeting of meetings$  | async">
+  <app-meeting [meeting]="meeting"></app-meeting>
 </div>

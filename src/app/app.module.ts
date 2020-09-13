@@ -1,26 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgbDatepickerModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { MomentModule } from 'ngx-moment';
-import { NgxDatePickerModule } from '@ngx-tiny/date-picker';
-
+import { environment } from 'src/environments/environment';
+import { APIInterceptor } from './api-interceptor';
+import { BASE_API_URL } from './api-url';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { APIInterceptor } from './api-interceptor';
-import { environment } from 'src/environments/environment';
-import { BASE_API_URL } from './api-url';
-import { CommonModule } from '@angular/common';
-import { HomeComponent } from './views/home/home.component';
-import { CreateMeettingComponent } from './views/create-meetting/create-meetting.component';
-import { UsersAvailabilityComponent } from './views/users-availability/users-availability.component';
-import { NotFoundComponent } from './views/not-found/not-found.component';
 import { MeetingComponent } from './components/meeting/meeting.component';
-import { AvailabilityByUserComponent } from './views/availability-by-user/availability-by-user.component';
 import { FullNamePipe } from './pipes/full-name.pipe';
-
+import { AvailabilityByUserComponent } from './views/availability-by-user/availability-by-user.component';
+import { CreateMeettingComponent } from './views/create-meetting/create-meetting.component';
+import { HomeComponent } from './views/home/home.component';
+import { NotFoundComponent } from './views/not-found/not-found.component';
+import { UsersAvailabilityComponent } from './views/users-availability/users-availability.component';
 
 @NgModule({
+  bootstrap: [AppComponent],
   declarations: [
     AppComponent,
     HomeComponent,
@@ -29,25 +28,26 @@ import { FullNamePipe } from './pipes/full-name.pipe';
     NotFoundComponent,
     MeetingComponent,
     AvailabilityByUserComponent,
-    FullNamePipe
+    FullNamePipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     CommonModule,
     MomentModule,
-    NgxDatePickerModule
+    NgbDatepickerModule,
+    NgbTimepickerModule,
   ],
   providers: [
     { provide: BASE_API_URL, useValue: environment.apiUrl },
     {
+      multi: true,
       provide: HTTP_INTERCEPTORS,
       useClass: APIInterceptor,
-      multi: true,
-    }
+    },
   ],
-  bootstrap: [AppComponent]
 })
 export class AppModule { }

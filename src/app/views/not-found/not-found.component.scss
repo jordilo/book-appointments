@@ -1,0 +1,12 @@
+:root {
+  display: flex;
+  flex-direction: column;
+  .not-found {
+    &-title {
+      font-size: 10vw;
+    }
+    &-description {
+      font-size: 4em;
+    }
+  }
+}

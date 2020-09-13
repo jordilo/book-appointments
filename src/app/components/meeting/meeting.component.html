@@ -6,8 +6,8 @@
       <p>Created by:
         <a [routerLink]="['user-availability',meeting.user.id]">
           <small>{{meeting.user | fullName}}</small></a></p>
-      <p>{{meeting.start | amDateFormat : 'LL'}}</p>
-      <p>{{meeting.start | amDateFormat : 'LT'}} - {{ meeting.end | amDateFormat : 'LT'}}</p>
+      <span>{{meeting.start | amDateFormat : 'LL'}} </span>
+      <span>{{meeting.start | amDateFormat : 'LT'}} - {{ meeting.end | amDateFormat : 'LT'}} </span>
 
 
     </div>

@@ -1,22 +1,19 @@
-import { Meeting } from './../../../definitions/meeting.d';
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MeetingsExtended } from 'src/app/services/meetings';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-meeting',
+  styleUrls: ['./meeting.component.scss'],
   templateUrl: './meeting.component.html',
-  styleUrls: ['./meeting.component.scss']
 })
-export class MeetingComponent implements OnInit {
+export class MeetingComponent {
 
-  @Input() public meeting: MeetingsExtended;
+  @Input() public meeting!: MeetingsExtended;
   constructor() { }
 
   public get userFullName(): string {
     return `${this.meeting.user.name} ${this.meeting.user.lastname}`;
-  }
-  ngOnInit(): void {
   }
 
 }
