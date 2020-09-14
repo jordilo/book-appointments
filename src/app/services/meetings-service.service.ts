@@ -43,27 +43,27 @@ export class MeetingsServiceService {
       .pipe(tap(() => this.getMeetings().subscribe()));
   }
 
-  public getMeetingsByUserId(userId: string): Observable<Meeting[]> {
-    return this.getMeetingsByUsers([userId]);
+  public getMeetingsByUserId(userId: number): Observable<Meeting[]> {
+    return this.getMeetingsByUsers$([userId]);
   }
-  public getMeetingsByUsers(usesrId: string[]): Observable<Meeting[]> {
+  public getMeetingsByUsers$(usesrId: number[]): Observable<Meeting[]> {
     return of(this._meetings)
-      .pipe(map(meetings => this._getMeetingsByUsers(usesrId, meetings)));
+      .pipe(map(meetings => this.getMeetingsByUsers(usesrId, meetings)));
   }
-  public isSomeMeetingOverlapped(usersId: string[], start: Date, end: Date): boolean {
-    return this._getMeetingsByUsers(usersId, this.meetings).some(meeting => validate(start, end, meeting));
+  public isSomeMeetingOverlapped(usersId: number[], start: Date, end: Date): boolean {
+    return this.getMeetingsByUsers(usersId, this.meetings).some(meeting => validate(start, end, meeting));
   }
 
   public getOverlappedMeetings(start: Date, end: Date): Meeting[] {
     return this._meetings.filter(meeting => validate(start, end, meeting));
   }
 
-  private _getMeetingsByUsers(usesrId: string[], meetings: Meeting[]): Meeting[] {
+  public getMeetingsByUsers(usesrId: number[], meetings: Meeting[]): Meeting[] {
     if (!usesrId.length) {
       return meetings;
     }
     return meetings.filter((m) => {
-      return usesrId.some(uid => Number(uid) === m.userId || m.attendants.indexOf(Number(uid)) !== -1);
+      return usesrId.some(uid => uid === m.userId || m.attendants.indexOf(uid) !== -1);
     });
   }
 }

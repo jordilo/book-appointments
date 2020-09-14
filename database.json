@@ -26,8 +26,7 @@
       "userId": 1,
       "attendants": [
         1,
-        2,
-        3
+        2
       ],
       "name": "Meeting for theme 1",
       "start": "2020-09-06T17:00:00.000+0200",

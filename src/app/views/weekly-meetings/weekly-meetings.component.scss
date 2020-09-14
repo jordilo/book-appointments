@@ -9,3 +9,26 @@
 .calendar-column {
   flex: 1;
 }
+.calendar-column-hours {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-right: 10px;
+  .hours {
+    flex: 0 0 50px;
+    display: flex;
+    transform: translateY(-7px);
+  }
+}
+
+.calendar-background {
+  background-size: 50px 50px;
+  background-image: linear-gradient(to bottom, #efefef 1px, transparent 1px);
+  position: relative;
+  height: 100%;
+}
+
+app-meeting-short {
+  position: absolute;
+  width: 100%;
+}

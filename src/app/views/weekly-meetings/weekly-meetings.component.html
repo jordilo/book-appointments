@@ -1,14 +1,32 @@
-<div class="users-wrap">
-  <div *ngFor="let user of users$ | async">{{user |fullName}}</div>
+<div class="users-wrap form-group form-check ">
+  <div *ngFor="let user of users$ | async ; index as i" >
+    <input type="checkbox"
+           class="form-check-input"
+           [id]="'checkUser_' + user.id"
+           [value]="user.id"
+           (change)="selectUser(user.id) " />
+    <label class="form-check-label"
+           [for]="'checkUser_' + user.id">
+      {{user | fullName}}</label>
+  </div>
 </div>
 <app-week-selector (changeDate)="onChangeDate($event)"
                    [from]="from"
                    [to]="to"></app-week-selector>
 <div class="calendar-wrap">
-
+  <div class="calendar-column-hours">
+    <small>H</small>
+    <div class="hours"
+         *ngFor="let hour of hours">{{hour}}</div>
+  </div>
   <div class="calendar-column text-center"
        *ngFor="let days of daysData">
     <small>{{days.day | amDateFormat : 'ddd DD MMM'}}</small>
-    <h4>{{days.meetings.length}}</h4>
+    <div class="calendar-background">
+      <app-meeting-short *ngFor="let meeting of days.meetings"
+                         [style.marginTop.px]="calculateMarginTop(meeting)"
+                         [style.height.px]="calculateHeight(meeting)"
+                         [meeting]="meeting"></app-meeting-short>
+    </div>
   </div>
 </div>

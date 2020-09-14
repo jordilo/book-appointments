@@ -11,6 +11,7 @@ import { APIInterceptor } from './api-interceptor';
 import { BASE_API_URL } from './api-url';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MeetingShortComponent } from './components/meeting-short/meeting-short.component';
 import { MeetingComponent } from './components/meeting/meeting.component';
 import { MeetingsComponent } from './components/meetings/meetings.component';
 import { WeekSelectorComponent } from './components/week-selector/week-selector.component';
@@ -36,6 +37,7 @@ import { WeeklyMeetingsComponent } from './views/weekly-meetings/weekly-meetings
     MeetingsComponent,
     WeeklyMeetingsComponent,
     WeekSelectorComponent,
+    MeetingShortComponent,
   ],
   imports: [
     BrowserModule,

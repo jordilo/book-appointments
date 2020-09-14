@@ -27,7 +27,7 @@ export class AvailabilityByUserComponent implements OnInit {
     this.currentUser$ = this.router.params
       .pipe(switchMap(({ id }) => this.usersService.getUserById(id)));
     this.meetings$ = this.router.params
-      .pipe(switchMap(({ id }) => this.meetingsService.getMeetingsByUserId(id)));
+      .pipe(switchMap(({ id }) => this.meetingsService.getMeetingsByUserId(Number(id))));
   }
 
 }

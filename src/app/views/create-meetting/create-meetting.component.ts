@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { NgbCalendar, NgbDateParserFormatter, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import moment from 'moment';
 import { Observable, Subscription, zip } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { debounceTime, map, tap } from 'rxjs/operators';
 import { Meeting } from 'src/definitions/meeting';
 import { User } from 'src/definitions/user';
 import { MeetingsServiceService } from '../../services/meetings-service.service';
@@ -23,6 +23,7 @@ export class CreateMeettingComponent implements OnInit, OnDestroy {
   public users$!: Observable<User[]>;
   public date = new Date();
   private formSubscription!: Subscription;
+  private readonly DEBOUNCE_TIME_FORM = 250;
 
   constructor(
     private fb: FormBuilder,
@@ -85,7 +86,7 @@ export class CreateMeettingComponent implements OnInit, OnDestroy {
   }
 
   private validateForm(start: string, end: string): boolean {
-    const meetingsOverlap = this.meetingServices.isSomeMeetingOverlapped(new Date(start), new Date(end));
+    const meetingsOverlap = this.meetingServices.isSomeMeetingOverlapped(this.form.value.attendants.value, new Date(start), new Date(end));
 
     if (meetingsOverlap) {
       this.form.setErrors({ unaivalableTime: 'There are already some meeting in this hours' }, { emitEvent: true });
@@ -107,6 +108,7 @@ export class CreateMeettingComponent implements OnInit, OnDestroy {
     });
     this.formSubscription = form.valueChanges
       .pipe(
+        debounceTime(this.DEBOUNCE_TIME_FORM),
         map(() => this.valueAdapterToMeeting(this.form.getRawValue())),
         tap((values) => this.validateForm(values.start, values.end))
       )
