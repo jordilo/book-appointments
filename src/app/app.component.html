@@ -12,6 +12,10 @@
       <li class="nav-item "><a class="nav-link"
            routerLinkActive="active"
            [routerLinkActiveOptions]="{exact:true}"
+           [routerLink]="['weekly-meetings' , year, week]">Weekly Meetings</a></li>
+      <li class="nav-item "><a class="nav-link"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact:true}"
            [routerLink]="['create-meeting']">Add Meeting</a></li>
     </ul>
   </nav>
@@ -22,4 +26,4 @@
     <router-outlet></router-outlet>
   </div>
 </section>
-<footer class="text-center">Book appointments</footer>
+<footer class="text-center">Book meetings</footer>

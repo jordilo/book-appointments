@@ -9,49 +9,7 @@ import { Meeting } from 'src/definitions/meeting';
 import { User } from 'src/definitions/user';
 import { MeetingsServiceService } from '../../services/meetings-service.service';
 import { UsersServiceService } from '../../services/users-service.service';
-
-const minHour = 9;
-const maxHour = 18;
-
-function validateStart(control: FormControl, end: AbstractControl | null): any {
-  const value: NgbTimeStruct = control.value;
-  if (!value || !end) {
-    return null;
-  }
-  end.setErrors(null);
-  const endValue: NgbTimeStruct = end.value;
-  if (value.hour > endValue.hour || value.hour === endValue.hour && value.minute >= endValue.minute) {
-    return { overlapEnd: true };
-  }
-  if (value.hour < minHour) {
-    return { tooEarly: true };
-  }
-  if (value.hour > maxHour && value.minute > 30) {
-    return { tooLate: true };
-  }
-
-  return null;
-}
-function validateEnd(control: FormControl, start: AbstractControl | null): any {
-  const value: NgbTimeStruct = control.value;
-  if (!value || !start) {
-    return null;
-  }
-  start.setErrors(null);
-  const startValue: NgbTimeStruct = start.value;
-  if (value.hour < startValue.hour || value.hour === startValue.hour && value.minute <= startValue.minute) {
-    return { overlapStart: true };
-  }
-  if (value.hour < (minHour + 1) && value.minute < 30 || value.hour < minHour) {
-    return { tooEarly: true };
-  }
-  if (value.hour > maxHour) {
-    return { tooLate: true };
-  }
-
-  return null;
-}
-
+import { ConfigurationService } from './../../services/configuration.service';
 
 @Component({
   selector: 'app-create-meetting',
@@ -70,6 +28,7 @@ export class CreateMeettingComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private usersServices: UsersServiceService,
     private meetingServices: MeetingsServiceService,
+    private configurationService: ConfigurationService,
     private calendar: NgbCalendar,
     public formatter: NgbDateParserFormatter,
     private router: Router,
@@ -129,7 +88,7 @@ export class CreateMeettingComponent implements OnInit, OnDestroy {
     const meetingsOverlap = this.meetingServices.isSomeMeetingOverlapped(new Date(start), new Date(end));
 
     if (meetingsOverlap) {
-      this.form.setErrors({ unaivalableTime: 'There are already some appointment in this hours' }, { emitEvent: true });
+      this.form.setErrors({ unaivalableTime: 'There are already some meeting in this hours' }, { emitEvent: true });
     }
 
     return meetingsOverlap;
@@ -141,9 +100,9 @@ export class CreateMeettingComponent implements OnInit, OnDestroy {
     const form = this.fb.group({
       attendants: [this.fb.array([user.id]), Validators.minLength(1)],
       date: this.calendar.getToday(),
-      end: [{ hour: 10, minute: 0, second: 0 }, (control: FormControl) => validateEnd(control, this.form?.get('start'))],
+      end: [{ hour: 10, minute: 0, second: 0 }, (control: FormControl) => this.validateEnd(control, this.form?.get('start'))],
       name: ['', Validators.required],
-      start: [{ hour: 9, minute: 0, second: 0 }, (control: FormControl) => validateStart(control, this.form?.get('end'))],
+      start: [{ hour: 9, minute: 0, second: 0 }, (control: FormControl) => this.validateStart(control, this.form?.get('end'))],
       userId: user.id,
     });
     this.formSubscription = form.valueChanges
@@ -154,4 +113,45 @@ export class CreateMeettingComponent implements OnInit, OnDestroy {
       .subscribe();
     return form;
   }
+
+  private validateStart(control: FormControl, end: AbstractControl | null): any {
+    const value: NgbTimeStruct = control.value;
+    if (!value || !end) {
+      return null;
+    }
+    end.setErrors(null);
+    const endValue: NgbTimeStruct = end.value;
+    if (value.hour > endValue.hour || value.hour === endValue.hour && value.minute >= endValue.minute) {
+      return { overlapEnd: true };
+    }
+    if (value.hour < this.configurationService.configuration.startWorkingHours) {
+      return { tooEarly: true };
+    }
+    if (value.hour > this.configurationService.configuration.endWorkingHours && value.minute > 30) {
+      return { tooLate: true };
+    }
+
+    return null;
+  }
+  private validateEnd(control: FormControl, start: AbstractControl | null): any {
+    const value: NgbTimeStruct = control.value;
+    if (!value || !start) {
+      return null;
+    }
+    start.setErrors(null);
+    const startValue: NgbTimeStruct = start.value;
+    if (value.hour < startValue.hour || value.hour === startValue.hour && value.minute <= startValue.minute) {
+      return { overlapStart: true };
+    }
+    if (value.hour < (this.configurationService.configuration.startWorkingHours + 1) && value.minute < 30
+      || value.hour < this.configurationService.configuration.startWorkingHours) {
+      return { tooEarly: true };
+    }
+    if (value.hour > this.configurationService.configuration.endWorkingHours) {
+      return { tooLate: true };
+    }
+
+    return null;
+  }
+
 }

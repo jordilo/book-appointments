@@ -16,6 +16,10 @@
       "lastname": "Skinner"
     }
   ],
+  "configuration": {
+    "startWorkingHours": 9,
+    "endWorkingHours": 18
+  },
   "meetings": [
     {
       "id": 1,
@@ -103,6 +107,17 @@
       "end": "2020-09-13T13:30:00+02:00",
       "userId": 1,
       "id": 8
+    },
+    {
+      "attendants": [
+        1,
+        3
+      ],
+      "end": "2020-09-14T15:00:00+02:00",
+      "name": "Meeting",
+      "start": "2020-09-14T13:00:00+02:00",
+      "userId": 1,
+      "id": 9
     }
   ]
 }

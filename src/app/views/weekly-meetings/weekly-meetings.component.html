@@ -1,0 +1,14 @@
+<div class="users-wrap">
+  <div *ngFor="let user of users$ | async">{{user |fullName}}</div>
+</div>
+<app-week-selector (changeDate)="onChangeDate($event)"
+                   [from]="from"
+                   [to]="to"></app-week-selector>
+<div class="calendar-wrap">
+
+  <div class="calendar-column text-center"
+       *ngFor="let days of daysData">
+    <small>{{days.day | amDateFormat : 'ddd DD MMM'}}</small>
+    <h4>{{days.meetings.length}}</h4>
+  </div>
+</div>

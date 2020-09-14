@@ -1,12 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import * as _ from 'lodash';
 import moment from 'moment';
-import { MeetingsExtended } from 'src/app/services/meetings';
+import { MeetingsByDay, MeetingsExtended } from 'src/app/services/meetings';
 import { Meeting } from 'src/definitions/meeting';
-interface MeetingsByDay {
-  meetings: MeetingsExtended[];
-  day: string;
-}
+
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

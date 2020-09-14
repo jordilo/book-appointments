@@ -17,9 +17,11 @@ function validate(start: Date, end: Date, meeting: Meeting): boolean {
 })
 export class MeetingsServiceService {
 
+  public get meetings(): MeetingsExtended[] {
+    return this._meetings as MeetingsExtended[];
+  }
   private readonly CRUD_BASE = 'meetings';
-
-  private meetings: Meeting[] = [];
+  private _meetings: Meeting[] = [];
   constructor(private http: HttpClient) {
   }
 
@@ -30,7 +32,7 @@ export class MeetingsServiceService {
    */
   public getMeetings(field: MeetingSort = 'start', order: ORDER = 'asc'): Observable<MeetingsExtended[]> {
     return this.http.get<MeetingsExtended[]>(`${this.CRUD_BASE}/?_expand=user&_sort=${field}&_order=${order}`)
-      .pipe(tap(meetings => this.meetings = meetings));
+      .pipe(tap(meetings => this._meetings = meetings));
   }
   /**
    * Add a meeting
@@ -45,16 +47,16 @@ export class MeetingsServiceService {
     return this.getMeetingsByUsers([userId]);
   }
   public getMeetingsByUsers(usesrId: string[]): Observable<Meeting[]> {
-    return of(this.meetings)
+    return of(this._meetings)
       .pipe(map(meeting => meeting.filter((m) => {
         return usesrId.some(uid => Number(uid) === m.userId || m.attendants.indexOf(Number(uid)) !== -1);
       })));
   }
   public isSomeMeetingOverlapped(start: Date, end: Date): boolean {
-    return this.meetings.some(meeting => validate(start, end, meeting));
+    return this._meetings.some(meeting => validate(start, end, meeting));
   }
 
   public getOverlappedMeetings(start: Date, end: Date): Meeting[] {
-    return this.meetings.filter(meeting => validate(start, end, meeting));
+    return this._meetings.filter(meeting => validate(start, end, meeting));
   }
 }

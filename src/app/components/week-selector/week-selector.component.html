@@ -1,0 +1,7 @@
+<button class="btn btn-outline-primary"
+        (click)="previousWeek()"> &lt;</button>
+<span>
+  from {{from | amDateFormat : 'LL'}} to {{ to |amDateFormat : 'LL'}}
+</span>
+<button class="btn btn-outline-primary"
+        (click)="nextWeek()"> &gt;</button>

@@ -5,6 +5,7 @@ import { CreateMeettingComponent } from './views/create-meetting/create-meetting
 import { HomeComponent } from './views/home/home.component';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { UsersAvailabilityComponent } from './views/users-availability/users-availability.component';
+import { WeeklyMeetingsComponent } from './views/weekly-meetings/weekly-meetings.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
     component: UsersAvailabilityComponent,
     path: 'user-availability',
   },
+  { path: 'weekly-meetings/:year/:week', component: WeeklyMeetingsComponent },
   { path: 'create-meeting', component: CreateMeettingComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: 'not-found' },
