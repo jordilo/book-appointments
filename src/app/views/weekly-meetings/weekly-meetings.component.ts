@@ -77,7 +77,6 @@ export class WeeklyMeetingsComponent implements OnInit {
     this.from = newWeek.clone();
     this.to = newWeek.clone().add(6, 'days');
     const meetings = this._meetings.getMeetingsByUsers(this.usersToSelect, this._meetings.meetings);
-    console.log(meetings);
     this.daysData = [...Array(7).keys()].map(index => {
       const day = moment(this.from).clone().add(index, 'days');
       return {
