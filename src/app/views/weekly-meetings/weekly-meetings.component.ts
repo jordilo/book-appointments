@@ -4,11 +4,11 @@ import { Moment } from 'moment';
 import moment from 'moment';
 import { Observable } from 'rxjs';
 import { ConfigurationService } from 'src/app/services/configuration.service';
-import { MeetingsServiceService } from 'src/app/services/meetings.service';
+import { MeetingsService } from 'src/app/services/meetings.service';
 import { Meeting } from 'src/definitions/meeting';
 import { User } from 'src/definitions/user';
+import { UsersService } from '../../services/users.service';
 import { MeetingsByDay } from './../../services/meetings.d';
-import { UsersServiceService } from './../../services/users-service.service';
 
 @Component({
   selector: 'app-weekly-meetings',
@@ -30,8 +30,8 @@ export class WeeklyMeetingsComponent implements OnInit {
   private _params!: string[];
   public readonly PIXEL_PER_HOUR = 100 / 60;
   constructor(
-    private readonly _meetings: MeetingsServiceService,
-    private readonly _users: UsersServiceService,
+    private readonly _meetings: MeetingsService,
+    private readonly _users: UsersService,
     private readonly _configurationService: ConfigurationService,
     private readonly _route: ActivatedRoute,
     private readonly _router: Router) { }

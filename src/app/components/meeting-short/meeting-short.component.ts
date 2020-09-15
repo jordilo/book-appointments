@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MeetingsExtended } from 'src/app/services/meetings';
 
 @Component({
@@ -7,13 +7,9 @@ import { MeetingsExtended } from 'src/app/services/meetings';
   styleUrls: ['./meeting-short.component.scss'],
   templateUrl: './meeting-short.component.html',
 })
-export class MeetingShortComponent implements OnInit {
+export class MeetingShortComponent {
 
 
   @Input() public meeting!: MeetingsExtended;
-  constructor() { }
-
-  public ngOnInit(): void {
-  }
 
 }

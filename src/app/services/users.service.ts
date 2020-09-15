@@ -6,7 +6,7 @@ import { User } from 'src/definitions/user';
 @Injectable({
   providedIn: 'root'
 })
-export class UsersServiceService {
+export class UsersService {
   private readonly CRUD_BASE = 'users';
   constructor(private http: HttpClient) { }
 

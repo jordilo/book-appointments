@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { MeetingsExtended } from 'src/app/services/meetings';
-import { MeetingsServiceService } from 'src/app/services/meetings.service';
-import { UsersServiceService } from 'src/app/services/users-service.service';
+import { MeetingsService } from 'src/app/services/meetings.service';
+import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/definitions/user';
 
 @Component({
@@ -18,8 +18,8 @@ export class MeetingViewComponent implements OnInit {
 
   private users: User[] = [];
   constructor(
-    private readonly _meetings: MeetingsServiceService,
-    private readonly _users: UsersServiceService,
+    private readonly _meetings: MeetingsService,
+    private readonly _users: UsersService,
     private readonly _route: ActivatedRoute) { }
 
   public ngOnInit(): void {

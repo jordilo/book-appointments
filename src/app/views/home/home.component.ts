@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { ORDER } from 'src/app/services/api-helpers';
 import { MeetingsExtended } from 'src/app/services/meetings';
-import { MeetingsServiceService } from 'src/app/services/meetings.service';
+import { MeetingsService } from 'src/app/services/meetings.service';
 
 @Component({
   selector: 'app-home',
@@ -19,15 +19,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   private formSubscription!: Subscription;
   private currentSort: ORDER = 'asc';
 
-  constructor(private meetingsService: MeetingsServiceService, private fb: FormBuilder) { }
+  constructor(
+    private readonly _meetingsService: MeetingsService,
+    private readonly _fb: FormBuilder) { }
 
   public ngOnInit(): void {
-    this.form = this.fb.group({ order: 'asc' });
+    this.form = this._fb.group({ order: 'asc' });
     this.formSubscription = this.form.valueChanges.subscribe(({ order }) => {
       this.currentSort = order;
-      this.meetings$ = this.meetingsService.getMeetings('start', this.currentSort);
+      this.meetings$ = this._meetingsService.getMeetings('start', this.currentSort);
     });
-    this.meetings$ = this.meetingsService.getMeetings('start', this.currentSort);
+    this.meetings$ = this._meetingsService.getMeetings('start', this.currentSort);
   }
 
   public ngOnDestroy(): void {

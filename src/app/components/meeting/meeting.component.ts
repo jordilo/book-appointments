@@ -10,7 +10,6 @@ import { MeetingsExtended } from 'src/app/services/meetings';
 export class MeetingComponent {
 
   @Input() public meeting!: MeetingsExtended;
-  constructor() { }
 
   public get userFullName(): string {
     return `${this.meeting.user.name} ${this.meeting.user.lastname}`;
