@@ -15,7 +15,7 @@ function validate(start: Date, end: Date, meeting: Meeting): boolean {
 @Injectable({
   providedIn: 'root'
 })
-export class MeetingsServiceService {
+export class MeetingsService {
 
   public get meetings(): MeetingsExtended[] {
     return this._meetings as MeetingsExtended[];

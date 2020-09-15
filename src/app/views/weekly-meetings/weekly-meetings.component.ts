@@ -4,7 +4,7 @@ import { Moment } from 'moment';
 import moment from 'moment';
 import { Observable } from 'rxjs';
 import { ConfigurationService } from 'src/app/services/configuration.service';
-import { MeetingsServiceService } from 'src/app/services/meetings-service.service';
+import { MeetingsServiceService } from 'src/app/services/meetings.service';
 import { Meeting } from 'src/definitions/meeting';
 import { User } from 'src/definitions/user';
 import { MeetingsByDay } from './../../services/meetings.d';

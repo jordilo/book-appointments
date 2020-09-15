@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Observable, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ConfigurationService } from './services/configuration.service';
-import { MeetingsServiceService } from './services/meetings-service.service';
+import { MeetingsServiceService } from './services/meetings.service';
 
 @Component({
   selector: 'app-root',

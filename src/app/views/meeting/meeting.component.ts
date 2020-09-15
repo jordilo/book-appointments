@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { MeetingsExtended } from 'src/app/services/meetings';
-import { MeetingsServiceService } from 'src/app/services/meetings-service.service';
+import { MeetingsServiceService } from 'src/app/services/meetings.service';
 import { UsersServiceService } from 'src/app/services/users-service.service';
 import { User } from 'src/definitions/user';
 

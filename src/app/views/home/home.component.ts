@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { ORDER } from 'src/app/services/api-helpers';
 import { MeetingsExtended } from 'src/app/services/meetings';
-import { MeetingsServiceService } from 'src/app/services/meetings-service.service';
+import { MeetingsServiceService } from 'src/app/services/meetings.service';
 
 @Component({
   selector: 'app-home',

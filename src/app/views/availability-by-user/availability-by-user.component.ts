@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { MeetingsServiceService } from 'src/app/services/meetings-service.service';
+import { MeetingsServiceService } from 'src/app/services/meetings.service';
 import { Meeting } from 'src/definitions/meeting';
 import { User } from 'src/definitions/user';
 import { UsersServiceService } from './../../services/users-service.service';

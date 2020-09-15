@@ -7,7 +7,7 @@ import { Observable, Subscription, zip } from 'rxjs';
 import { debounceTime, map, tap } from 'rxjs/operators';
 import { Meeting } from 'src/definitions/meeting';
 import { User } from 'src/definitions/user';
-import { MeetingsServiceService } from '../../services/meetings-service.service';
+import { MeetingsServiceService } from '../../services/meetings.service';
 import { UsersServiceService } from '../../services/users-service.service';
 import { ConfigurationService } from './../../services/configuration.service';
 
