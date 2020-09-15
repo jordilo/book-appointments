@@ -5,7 +5,7 @@
   <span>{{meeting.start | amDateFormat : 'LT'}} - {{ meeting.end | amDateFormat : 'LT'}} </span>
   <div class="separator"></div>
   <p>Created by:
-    <a [routerLink]="['user-availability',meeting.user?.id]">
+    <a [routerLink]="['/user-availability',meeting.user?.id]">
       <small>{{getUser(meeting.userId) | fullName}}</small></a></p>
 
   <div class="separator"></div>
