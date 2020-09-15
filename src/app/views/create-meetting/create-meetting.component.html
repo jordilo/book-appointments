@@ -13,7 +13,7 @@
   </div>
 
   <div class="form-group form-check">
-    <div *ngFor="let user of users$ | async ; index as i">
+    <div *ngFor="let user of users$ | async ; index as i; trackBy : i">
       <input type="checkbox"
              class="form-check-input"
              [id]="'checkUser_' + user.id"

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { MeetingsExtended } from 'src/app/services/meetings';
 import { MeetingsServiceService } from 'src/app/services/meetings-service.service';
 import { UsersServiceService } from 'src/app/services/users-service.service';
@@ -26,11 +26,7 @@ export class MeetingViewComponent implements OnInit {
     this._users.getUsers().subscribe((users) => this.users = users);
 
     this.meeting$ = this._route.params
-      .pipe(
-        tap(console.log)
-        , switchMap(({ id }) => this._meetings.getMeetingById(Number(id))),
-        tap(console.log)
-      );
+      .pipe(switchMap(({ id }) => this._meetings.getMeetingById(Number(id))));
   }
 
   public getUser(userId: number): User {
