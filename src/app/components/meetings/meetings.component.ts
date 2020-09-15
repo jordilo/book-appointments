@@ -28,4 +28,8 @@ export class MeetingsComponent implements OnInit, OnChanges {
   public ngOnInit(): void {
   }
 
+  public trackByFn(_index: number, meeting: Meeting): number {
+    return meeting.id;
+  }
+
 }

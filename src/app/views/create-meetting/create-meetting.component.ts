@@ -155,5 +155,8 @@ export class CreateMeettingComponent implements OnInit, OnDestroy {
 
     return null;
   }
+  public trackByFn(_index: number, user: User): number {
+    return user.id;
+  }
 
 }

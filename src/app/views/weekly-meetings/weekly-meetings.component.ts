@@ -70,6 +70,15 @@ export class WeeklyMeetingsComponent implements OnInit {
     }
     this.calculateMeetings(this._params[0], this._params[1]);
   }
+  public trackByUser(_index: number, user: User): number {
+    return user.id;
+  }
+  public trackByHour(_index: number, hour: string): string {
+    return hour;
+  }
+  public trackByMeeting(_index: number, meeting: Meeting): number {
+    return meeting.id;
+  }
 
   private calculateMeetings(year: string, week: string): void {
     this._params = [year, week];

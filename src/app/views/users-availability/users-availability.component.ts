@@ -16,5 +16,7 @@ export class UsersAvailabilityComponent implements OnInit {
   public ngOnInit(): void {
     this.users$ = this._usersService.getUsers();
   }
-
+  public trackByFn(_index: number, user: User): number {
+    return user.id;
+  }
 }

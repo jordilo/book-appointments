@@ -1,5 +1,5 @@
 <div class="users-wrap form-group form-check ">
-  <div *ngFor="let user of users$ | async ; index as i; trackBy : i">
+  <div *ngFor="let user of users$ | async ; trackBy : trackByUser">
     <input type="checkbox"
            class="form-check-input"
            [id]="'checkUser_' + user.id"
@@ -17,14 +17,14 @@
   <div class="calendar-column-hours">
     <small>H</small>
     <div class="hours"
-         *ngFor="let hour of hours;index as i; trackBy : i">{{hour}}</div>
+         *ngFor="let hour of hours;trackBy : trackByHour">{{hour}}</div>
   </div>
   <div class="calendar-column text-center"
        *ngFor="let days of daysData;">
     <small>{{days.day | amDateFormat : 'ddd DD MMM'}}</small>
     <div class="calendar-background">
       <app-meeting-short [routerLink]="['/meeting' , meeting.id]"
-                         *ngFor="let meeting of days.meetings;index as i; trackBy : i"
+                         *ngFor="let meeting of days.meetings;trackBy : trackByMeeting"
                          [style.marginTop.px]="calculateMarginTop(meeting)"
                          [style.height.px]="calculateHeight(meeting)"
                          [meeting]="meeting"></app-meeting-short>

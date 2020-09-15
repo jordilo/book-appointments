@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-3">
 
-    <div *ngFor="let user of users$ |async;index as i; trackBy : i">
+    <div *ngFor="let user of users$ |async;trackBy: trackByFn">
       <ul class="list-group">
         <li class="list-group-item"><a routerLinkActive="active"
              [routerLink]="[user.id]">{{user | fullName}}</a></li>

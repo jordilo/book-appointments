@@ -32,5 +32,8 @@ export class MeetingViewComponent implements OnInit {
   public getUser(userId: number): User {
     return this.users.find(u => u.id === userId) as User;
   }
+  public trackByFn(_index: number, userId: number): number {
+    return userId;
+  }
 
 }

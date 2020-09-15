@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.formSubscription.unsubscribe();
   }
 
-  public trackByFn(_index: number, meeting: MeetingsExtended): string {
-    return `${meeting.id}`;
+  public trackByFn(_index: number, option: string): string {
+    return option;
   }
 }
