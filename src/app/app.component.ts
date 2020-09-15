@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Observable, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ConfigurationService } from './services/configuration.service';
-import { MeetingsServiceService } from './services/meetings.service';
+import { MeetingsService } from './services/meetings.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   public week = moment().format('WW');
   constructor(
     private readonly _configurationService: ConfigurationService,
-    private readonly _meetingService: MeetingsServiceService) { }
+    private readonly _meetingService: MeetingsService) { }
   public ngOnInit(): void {
     this.readyData$ = zip(this._meetingService.getMeetings(), this._configurationService.getConfiguration())
       .pipe(map(() => true)) as Observable<boolean>;

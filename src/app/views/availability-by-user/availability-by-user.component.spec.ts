@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AvailabilityByUserComponent } from './availability-by-user.component';
 
@@ -6,11 +6,11 @@ describe('AvailabilityByUserComponent', () => {
   let component: AvailabilityByUserComponent;
   let fixture: ComponentFixture<AvailabilityByUserComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AvailabilityByUserComponent ]
+      declarations: [AvailabilityByUserComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
