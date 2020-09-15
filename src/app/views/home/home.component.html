@@ -6,7 +6,7 @@
     <select class="custom-select"
             id="orderMeetings"
             formControlName="order">
-      <option *ngFor="let option of orderKeys"
+      <option *ngFor="let option of orderKeys;index as i; trackBy : i"
               [value]="option">{{option}}</option>
     </select>
   </div>

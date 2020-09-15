@@ -11,7 +11,7 @@
   <div class="separator"></div>
   <div class="">
     <h3>Attendants</h3>
-    <div *ngFor="let userId of meeting.attendants">
+    <div *ngFor="let userId of meeting.attendants;index as i; trackBy : i">
       <a [routerLink]="['/user-availability',getUser(userId).id]">{{ getUser(userId) | fullName}}</a>
 
     </div>
