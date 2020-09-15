@@ -43,6 +43,10 @@ export class MeetingsServiceService {
       .pipe(tap(() => this.getMeetings().subscribe()));
   }
 
+  public getMeetingById(userId: number): Observable<MeetingsExtended> {
+    return this.http.get<MeetingsExtended>(`${this.CRUD_BASE}/${userId}?_expand=user`);
+  }
+
   public getMeetingsByUserId(userId: number): Observable<Meeting[]> {
     return this.getMeetingsByUsers$([userId]);
   }

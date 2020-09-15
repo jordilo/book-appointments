@@ -1,7 +1,9 @@
-<div *ngFor="let day of meetingsByDay" class="meetings-by-day">
+<div *ngFor="let day of meetingsByDay"
+     class="meetings-by-day">
   <h4>{{day.day | amDateFormat : 'LL'}}</h4>
   <div class="meetings">
     <app-meeting *ngFor="let meeting of day.meetings"
+                 [routerLink]="['meeting',meeting.id]"
                  [meeting]="meeting"></app-meeting>
   </div>
 

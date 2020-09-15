@@ -1,5 +1,5 @@
 <div class="users-wrap form-group form-check ">
-  <div *ngFor="let user of users$ | async ; index as i" >
+  <div *ngFor="let user of users$ | async ; index as i">
     <input type="checkbox"
            class="form-check-input"
            [id]="'checkUser_' + user.id"
@@ -23,7 +23,8 @@
        *ngFor="let days of daysData">
     <small>{{days.day | amDateFormat : 'ddd DD MMM'}}</small>
     <div class="calendar-background">
-      <app-meeting-short *ngFor="let meeting of days.meetings"
+      <app-meeting-short [routerLink]="['/meeting' , meeting.id]"
+                         *ngFor="let meeting of days.meetings"
                          [style.marginTop.px]="calculateMarginTop(meeting)"
                          [style.height.px]="calculateHeight(meeting)"
                          [meeting]="meeting"></app-meeting-short>

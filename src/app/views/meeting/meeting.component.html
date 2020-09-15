@@ -1,0 +1,22 @@
+<div *ngIf="meeting$ | async as meeting; else loading">
+  <h1>{{meeting.name}}</h1>
+  <div class="separator"></div>
+  <span>{{meeting.start | amDateFormat : 'LL'}} </span>
+  <span>{{meeting.start | amDateFormat : 'LT'}} - {{ meeting.end | amDateFormat : 'LT'}} </span>
+  <div class="separator"></div>
+  <p>Created by:
+    <a [routerLink]="['user-availability',meeting.user?.id]">
+      <small>{{getUser(meeting.userId) | fullName}}</small></a></p>
+
+  <div class="separator"></div>
+  <div class="">
+    <h3>Attendants</h3>
+    <div *ngFor="let userId of meeting.attendants">
+      <a [routerLink]="['/user-availability',getUser(userId).id]">{{ getUser(userId) | fullName}}</a>
+
+    </div>
+  </div>
+</div>
+<ng-template #loading>
+  Loading…
+</ng-template>

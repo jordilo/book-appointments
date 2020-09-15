@@ -19,6 +19,7 @@ import { FullNamePipe } from './pipes/full-name.pipe';
 import { AvailabilityByUserComponent } from './views/availability-by-user/availability-by-user.component';
 import { CreateMeettingComponent } from './views/create-meetting/create-meetting.component';
 import { HomeComponent } from './views/home/home.component';
+import { MeetingViewComponent } from './views/meeting/meeting.component';
 import { NotFoundComponent } from './views/not-found/not-found.component';
 import { UsersAvailabilityComponent } from './views/users-availability/users-availability.component';
 import { WeeklyMeetingsComponent } from './views/weekly-meetings/weekly-meetings.component';
@@ -38,14 +39,15 @@ import { WeeklyMeetingsComponent } from './views/weekly-meetings/weekly-meetings
     WeeklyMeetingsComponent,
     WeekSelectorComponent,
     MeetingShortComponent,
+    MeetingViewComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    CommonModule,
     MomentModule,
     NgbDatepickerModule,
     NgbTimepickerModule,
