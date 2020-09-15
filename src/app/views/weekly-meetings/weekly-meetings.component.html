@@ -20,7 +20,7 @@
          *ngFor="let hour of hours;index as i; trackBy : i">{{hour}}</div>
   </div>
   <div class="calendar-column text-center"
-       *ngFor="let days of daysData;index as i; trackBy : i">
+       *ngFor="let days of daysData;">
     <small>{{days.day | amDateFormat : 'ddd DD MMM'}}</small>
     <div class="calendar-background">
       <app-meeting-short [routerLink]="['/meeting' , meeting.id]"
