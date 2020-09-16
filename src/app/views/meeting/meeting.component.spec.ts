@@ -3,17 +3,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MockService } from 'ng-mocks';
 import { MomentModule } from 'ngx-moment';
 import { of } from 'rxjs';
+import { FullNamePipe } from 'src/app/pipes/full-name.pipe';
 import { MeetingsService } from 'src/app/services/meetings.service';
 import { UsersService } from 'src/app/services/users.service';
 import { MeetingViewComponent } from './meeting.component';
 
-xdescribe('MeetingViewComponent', () => {
+describe('MeetingViewComponent', () => {
   let component: MeetingViewComponent;
   let fixture: ComponentFixture<MeetingViewComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [MeetingViewComponent],
+      declarations: [MeetingViewComponent, FullNamePipe],
       imports: [ MomentModule],
       providers: [
         {
