@@ -1,8 +1,13 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MockService } from 'ng-mocks';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
+import { ConfigurationService } from './services/configuration.service';
+import { MeetingsService } from './services/meetings.service';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -11,20 +16,27 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule
       ],
+      providers: [
+        { provide: MeetingsService, useValue: MockService(MeetingsService) },
+        { provide: ConfigurationService, useValue: MockService(ConfigurationService) },
+      ],
     }).compileComponents();
   }));
 
-  it('should create the app', () => {
+  beforeEach(() => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+    component = fixture.componentInstance;
 
+    const meetingService = fixture.debugElement.injector.get(MeetingsService);
+    spyOn(meetingService, 'getMeetings').and.returnValue(of());
+    const condigurationService = fixture.debugElement.injector.get(ConfigurationService);
+    spyOn(condigurationService, 'getConfiguration').and.returnValue(of());
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('book-appointment app is running!');
   });
+
+  it('should create the app', () => {
+    expect(component).toBeTruthy();
+  });
+
 });

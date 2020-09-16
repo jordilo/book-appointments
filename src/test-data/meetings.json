@@ -1,0 +1,208 @@
+[
+  {
+    "id": 1,
+    "userId": 1,
+    "attendants": [
+      1,
+      2
+    ],
+    "name": "Meeting for theme 1",
+    "start": "2020-09-06T17:00:00.000+0200",
+    "end": "2020-09-06T17:30:00.000+0200",
+    "user": {
+      "id": 1,
+      "name": "name",
+      "lastname": "lastname"
+    }
+  },
+  {
+    "id": 2,
+    "userId": 1,
+    "attendants": [
+      1,
+      2,
+      3
+    ],
+    "name": "Meeting for theme 2",
+    "start": "2020-09-06T12:00:00.000+0200",
+    "end": "2020-09-06T13:00:00.000+0200",
+    "user": {
+      "id": 1,
+      "name": "name",
+      "lastname": "lastname"
+    }
+  },
+  {
+    "id": 3,
+    "userId": 2,
+    "attendants": [
+      2,
+      3
+    ],
+    "name": "Meeting for theme 3",
+    "start": "2020-09-06T14:00:00.000+0200",
+    "end": "2020-09-06T17:00:00.000+0200",
+    "user": {
+      "id": 1,
+      "name": "name",
+      "lastname": "lastname"
+    }
+  },
+  {
+    "attendants": [
+      1
+    ],
+    "name": "meeting name",
+    "start": "2020-09-13T09:00:00+02:00",
+    "end": "2020-09-13T10:00:00+02:00",
+    "userId": 1,
+    "id": 4,
+    "user": {
+      "id": 1,
+      "name": "name",
+      "lastname": "lastname"
+    }
+  },
+  {
+    "attendants": [
+      1
+    ],
+    "name": "meeting name",
+    "start": "2020-09-16T09:00:00+02:00",
+    "end": "2020-09-16T12:00:00+02:00",
+    "userId": 1,
+    "id": 5,
+    "user": {
+      "id": 1,
+      "name": "name",
+      "lastname": "lastname"
+    }
+  },
+  {
+    "attendants": [
+      1,
+      3
+    ],
+    "name": "meeting name",
+    "start": "2020-09-13T14:00:00+02:00",
+    "end": "2020-09-13T16:00:00+02:00",
+    "userId": 1,
+    "id": 6,
+    "user": {
+      "id": 1,
+      "name": "name",
+      "lastname": "lastname"
+    }
+  },
+  {
+    "attendants": [
+      1
+    ],
+    "name": "New meeting",
+    "start": "2020-09-13T10:00:00+02:00",
+    "end": "2020-09-13T13:30:00+02:00",
+    "userId": 1,
+    "id": 7,
+    "user": {
+      "id": 1,
+      "name": "name",
+      "lastname": "lastname"
+    }
+  },
+  {
+    "attendants": [
+      1,
+      3
+    ],
+    "name": "New meeting",
+    "start": "2020-09-13T10:00:00+02:00",
+    "end": "2020-09-13T13:30:00+02:00",
+    "userId": 1,
+    "id": 8,
+    "user": {
+      "id": 1,
+      "name": "name",
+      "lastname": "lastname"
+    }
+  },
+  {
+    "attendants": [
+      1,
+      3
+    ],
+    "end": "2020-09-14T15:00:00+02:00",
+    "name": "Meeting",
+    "start": "2020-09-14T13:00:00+02:00",
+    "userId": 1,
+    "id": 9,
+    "user": {
+      "id": 1,
+      "name": "name",
+      "lastname": "lastname"
+    }
+  },
+  {
+    "attendants": [
+      1
+    ],
+    "end": "2020-09-15T16:00:00+02:00",
+    "name": "f",
+    "start": "2020-09-15T09:00:00+02:00",
+    "userId": 1,
+    "id": 10,
+    "user": {
+      "id": 1,
+      "name": "name",
+      "lastname": "lastname"
+    }
+  },
+  {
+    "attendants": [
+      1,
+      2,
+      3
+    ],
+    "end": "2020-09-18T16:00:00+02:00",
+    "name": "Meeting for check salary",
+    "start": "2020-09-18T13:30:00+02:00",
+    "userId": 1,
+    "id": 11,
+    "user": {
+      "id": 1,
+      "name": "name",
+      "lastname": "lastname"
+    }
+  },
+  {
+    "attendants": [
+      1
+    ],
+    "end": "2020-09-24T10:00:00+02:00",
+    "name": "def",
+    "start": "2020-09-24T09:00:00+02:00",
+    "userId": 1,
+    "id": 12,
+    "user": {
+      "id": 1,
+      "name": "name",
+      "lastname": "lastname"
+    }
+  },
+  {
+    "attendants": [
+      1,
+      2,
+      3
+    ],
+    "end": "2020-09-19T15:00:00+02:00",
+    "name": "gg",
+    "start": "2020-09-19T11:00:00+02:00",
+    "userId": 1,
+    "id": 13,
+    "user": {
+      "id": 1,
+      "name": "name",
+      "lastname": "lastname"
+    }
+  }
+]

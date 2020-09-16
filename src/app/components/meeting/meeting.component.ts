@@ -8,11 +8,5 @@ import { MeetingsExtended } from 'src/app/services/meetings';
   templateUrl: './meeting.component.html',
 })
 export class MeetingComponent {
-
   @Input() public meeting!: MeetingsExtended;
-
-  public get userFullName(): string {
-    return `${this.meeting.user.name} ${this.meeting.user.lastname}`;
-  }
-
 }
